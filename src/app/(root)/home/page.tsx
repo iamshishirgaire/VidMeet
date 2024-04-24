@@ -1,10 +1,11 @@
 import React from "react";
+import PageWrapper from "~/components/page-wrapper";
 
 function HomePage() {
   return (
-    <div>
-      <p>Welcome to the home page!</p>
-    </div>
+    <PageWrapper>
+      <div>HomePage</div>
+    </PageWrapper>
   );
 }
 

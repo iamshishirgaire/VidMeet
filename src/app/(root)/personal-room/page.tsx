@@ -1,7 +1,8 @@
 import React from "react";
+import PageWrapper from "~/components/page-wrapper";
 
 function PersonalRoom() {
-  return <div>PersonalRoom</div>;
+  return <PageWrapper>PersonalRoom</PageWrapper>;
 }
 
 export default PersonalRoom;

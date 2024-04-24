@@ -1,7 +1,8 @@
 import React from "react";
+import PageWrapper from "~/components/page-wrapper";
 
 function UpcomingPage() {
-  return <div>UpcomingPage</div>;
+  return <PageWrapper>UpcomingPage</PageWrapper>;
 }
 
 export default UpcomingPage;

@@ -1,6 +1,7 @@
 import "~/styles/globals.css";
 
 import { Inter } from "next/font/google";
+import AppProvider from "~/components/provider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -8,9 +9,9 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "Video Conferencing App ",
+  title: "VidMeet ",
   description: "A video conferencing app built with Next.js and Stream.",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
+  icons: [{ rel: "icon", url: "/icons/favicon.ico" }],
 };
 
 export default function RootLayout({
@@ -19,8 +20,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`font-sans ${inter.variable}`}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className}`}>
+        <AppProvider>{children}</AppProvider>
+      </body>
     </html>
   );
 }

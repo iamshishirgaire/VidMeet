@@ -1,7 +1,8 @@
 import React from "react";
+import PageWrapper from "~/components/page-wrapper";
 
 function RecordingsPage() {
-  return <div>RecordingsPage</div>;
+  return <PageWrapper>RecordingsPage</PageWrapper>;
 }
 
 export default RecordingsPage;

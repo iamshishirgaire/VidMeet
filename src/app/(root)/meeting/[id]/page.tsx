@@ -1,4 +1,5 @@
 import React from "react";
+import PageWrapper from "~/components/page-wrapper";
 
 function MeetingPage({
   params,
@@ -8,10 +9,10 @@ function MeetingPage({
   };
 }) {
   return (
-    <div>
+    <PageWrapper>
       <h1>Meeting Page</h1>
       <p>Slug: {params.id}</p>
-    </div>
+    </PageWrapper>
   );
 }
 

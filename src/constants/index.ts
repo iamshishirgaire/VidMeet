@@ -1,27 +1,37 @@
+import {
+  CalendarIcon,
+  HistoryIcon,
+  HomeIcon,
+  PlusIcon,
+  User2Icon,
+  UserIcon,
+  VideoIcon,
+} from "lucide-react";
+
 export const sidebarLinks = [
   {
-    imgURL: "/icons/Home.svg",
-    route: "/",
+    imgURL: HomeIcon,
+    route: "/home",
     label: "Home",
   },
 
   {
-    imgURL: "/icons/upcoming.svg",
+    imgURL: CalendarIcon,
     route: "/upcoming",
     label: "Upcoming",
   },
   {
-    imgURL: "/icons/previous.svg",
+    imgURL: HistoryIcon,
     route: "/previous",
     label: "Previous",
   },
   {
-    imgURL: "/icons/Video.svg",
+    imgURL: VideoIcon,
     route: "/recordings",
     label: "Recordings",
   },
   {
-    imgURL: "/icons/add-personal.svg",
+    imgURL: UserIcon,
     route: "/personal-room",
     label: "Personal Room",
   },
