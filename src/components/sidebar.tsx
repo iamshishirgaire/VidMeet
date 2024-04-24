@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { sidebarLinks } from "~/constants";
 import { cn } from "~/lib/utils";
 
-const Sidebar = () => {
+const Sidebar = ({ label }: { label?: boolean }) => {
   const pathname = usePathname();
 
   return (
@@ -34,7 +34,14 @@ const Sidebar = () => {
                 )}
               />
             }
-            <p className="text-md font-semibold max-lg:hidden">{item.label}</p>
+            <p
+              className={cn(
+                "text-md hidden font-semibold lg:flex",
+                label && "flex",
+              )}
+            >
+              {item.label}
+            </p>
           </Link>
         );
       })}
