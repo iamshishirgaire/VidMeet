@@ -2,8 +2,6 @@ import {
   CalendarIcon,
   HistoryIcon,
   HomeIcon,
-  PlusIcon,
-  User2Icon,
   UserIcon,
   VideoIcon,
 } from "lucide-react";

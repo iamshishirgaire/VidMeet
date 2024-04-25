@@ -1,14 +1,27 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { sidebarLinks } from "~/constants";
 import { cn } from "~/lib/utils";
 
-const Sidebar = ({ label }: { label?: boolean }) => {
+const Sidebar = () => {
   const pathname = usePathname();
 
   return (
     <div className="flex flex-1 flex-col gap-6">
+      <nav className="flex h-[70px] flex-row items-center justify-start gap-2">
+        <Image
+          src={"/icons/logo.svg"}
+          height={40}
+          width={40}
+          alt="Vidmeet Logo"
+        ></Image>
+        <p className={cn("hidden text-2xl font-bold lg:flex ")}>
+          <span className="tracking-normal">VID</span>
+          <span className="tracking-normal text-primary">MEET</span>
+        </p>
+      </nav>
       {sidebarLinks.map((item) => {
         const isActive =
           pathname === item.route || pathname.startsWith(`${item.route}/`);
@@ -34,12 +47,7 @@ const Sidebar = ({ label }: { label?: boolean }) => {
                 )}
               />
             }
-            <p
-              className={cn(
-                "text-md hidden font-semibold lg:flex",
-                label && "flex",
-              )}
-            >
+            <p className={cn("text-md hidden font-semibold lg:flex")}>
               {item.label}
             </p>
           </Link>
