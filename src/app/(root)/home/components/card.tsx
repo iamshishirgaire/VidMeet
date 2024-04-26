@@ -28,9 +28,15 @@ const MeetingCard = ({
   buttonText,
 }: MeetingCardProps) => {
   return (
-    <section className="flex min-h-[258px] w-full flex-col justify-between rounded-[14px] px-5 py-8 xl:max-w-[568px]">
+    <section className="flex min-h-[258px] w-full flex-col justify-between  rounded-lg  border border-border bg-white px-5 py-8 transition-shadow duration-300 hover:shadow-md dark:bg-background/10 xl:max-w-[568px]">
       <article className="flex flex-col gap-5">
-        <Image src={icon} alt="upcoming" width={28} height={28} />
+        <Image
+          className="dark:invert-none  grayscale invert sepia filter dark:filter-none "
+          src={icon}
+          alt="upcoming"
+          width={28}
+          height={28}
+        />
         <div className="flex justify-between">
           <div className="flex flex-col gap-2">
             <h1 className="text-2xl font-bold">{title}</h1>
@@ -51,7 +57,7 @@ const MeetingCard = ({
               style={{ top: 0, left: index * 28 }}
             />
           ))}
-          <div className="flex-center absolute left-[136px] size-10 rounded-full border-[5px] border-border bg-blue-800">
+          <div className="absolute left-[136px] flex size-10 items-center justify-center rounded-full border-[5px] border-border bg-border   ">
             +5
           </div>
         </div>
