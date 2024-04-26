@@ -23,7 +23,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         >
           <StreamProvider>{children}</StreamProvider>
         </ClerkProvider>
-        <Toaster richColors></Toaster>
+        <Toaster position="top-right" richColors></Toaster>
       </ThemeProvider>
     </>
   );
