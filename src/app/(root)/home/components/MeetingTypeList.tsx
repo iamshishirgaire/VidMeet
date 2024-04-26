@@ -12,13 +12,13 @@ import { Textarea } from "~/components/ui/textarea";
 import HomeCard from "./HomeCard";
 import MeetingModal from "./MeetingModel";
 const initialValues = {
-  dateTime: new Date(),
   description: "",
   link: "",
 };
 
 const MeetingTypeList = () => {
   const router = useRouter();
+  const [meetingDate, setMeetingDate] = useState<Date | undefined>();
   const [meetingState, setMeetingState] = useState<
     "isScheduleMeeting" | "isJoiningMeeting" | "isInstantMeeting" | undefined
   >(undefined);
@@ -30,17 +30,17 @@ const MeetingTypeList = () => {
   const createMeeting = async () => {
     if (!client || !user) return;
     try {
-      if (!values.dateTime) {
+      if (!meetingDate) {
         toast.error("Please select a date and time");
+        return;
       }
       const id = crypto.randomUUID();
       const call = client.call("default", id);
       if (!call) throw new Error("Failed to create meeting");
-      const startsAt = new Date(Date.now()).toISOString();
       const description = values.description || "Instant Meeting";
       await call.getOrCreate({
         data: {
-          starts_at: startsAt,
+          starts_at: meetingDate.toISOString(),
           custom: {
             description,
           },
@@ -122,9 +122,8 @@ const MeetingTypeList = () => {
               Select Date and Time
             </label>
             <DateTimePicker
-              value={values.dateTime}
-              setValue={(date) => {
-                setValues({ ...values, dateTime: date });
+              onDateTimeSelect={(date) => {
+                setMeetingDate(date);
               }}
             ></DateTimePicker>
           </div>

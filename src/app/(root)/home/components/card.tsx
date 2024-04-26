@@ -28,7 +28,7 @@ const MeetingCard = ({
   buttonText,
 }: MeetingCardProps) => {
   return (
-    <section className="flex min-h-[258px] w-full flex-col justify-between  rounded-lg  border border-border bg-white px-5 py-8 transition-shadow duration-300 hover:shadow-md dark:bg-background/10 xl:max-w-[568px]">
+    <section className="flex min-h-fit w-full flex-col justify-between gap-20 rounded-lg  border    px-5 py-8 transition-shadow duration-300 hover:shadow-md dark:bg-background/10 xl:max-w-[568px]">
       <article className="flex flex-col gap-5">
         <Image
           className="dark:invert-none  grayscale invert sepia filter dark:filter-none "
@@ -37,33 +37,22 @@ const MeetingCard = ({
           width={28}
           height={28}
         />
-        <div className="flex justify-between">
+        <div
+          className={cn("flex justify-between", isPreviousMeeting && "mt-20")}
+        >
           <div className="flex flex-col gap-2">
             <h1 className="text-2xl font-bold">{title}</h1>
             <p className="text-base font-normal">{date}</p>
           </div>
         </div>
       </article>
-      <article className={cn("relative flex justify-center", {})}>
-        <div className="relative flex w-full max-sm:hidden">
-          {avatarImages.map((img, index) => (
-            <Image
-              key={index}
-              src={img}
-              alt="attendees"
-              width={40}
-              height={40}
-              className={cn("rounded-full", { absolute: index > 0 })}
-              style={{ top: 0, left: index * 28 }}
-            />
-          ))}
-          <div className="absolute left-[136px] flex size-10 items-center justify-center rounded-full border-[5px] border-border bg-border   ">
-            +5
-          </div>
-        </div>
-        {!isPreviousMeeting && (
-          <div className="flex gap-2">
-            <Button onClick={handleClick} className="bg-blue-1 rounded px-6">
+      {!isPreviousMeeting && (
+        <article className={cn("relative flex justify-center ", {})}>
+          <div className="flex w-full gap-2 ">
+            <Button
+              onClick={handleClick}
+              className="rounded bg-green-500 px-6 hover:bg-green-600"
+            >
               {buttonIcon1 && (
                 <Image src={buttonIcon1} alt="feature" width={20} height={20} />
               )}
@@ -74,7 +63,7 @@ const MeetingCard = ({
                 navigator.clipboard.writeText(link);
                 toast.info("Link copied to clipboard");
               }}
-              className="bg-dark-4 px-6"
+              className="bg-primary px-6"
             >
               <Image
                 src="/icons/copy.svg"
@@ -85,8 +74,8 @@ const MeetingCard = ({
               &nbsp; Copy Link
             </Button>
           </div>
-        )}
-      </article>
+        </article>
+      )}
     </section>
   );
 };

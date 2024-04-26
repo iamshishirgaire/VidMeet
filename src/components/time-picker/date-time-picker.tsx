@@ -5,16 +5,14 @@ import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
-import { Calendar } from "../ui/calendar";
-import { TimePickerDemo } from "./time-picker";
 import { cn } from "~/lib/utils";
+import { Calendar } from "../ui/calendar";
+import { TimePicker } from "./time-picker";
 
 export function DateTimePicker({
-  value,
-  setValue,
+  onDateTimeSelect,
 }: {
-  value: Date;
-  setValue: React.Dispatch<any>;
+  onDateTimeSelect: (dateTime: Date | undefined) => void;
 }) {
   const [date, setDate] = React.useState<Date>();
 
@@ -24,7 +22,7 @@ export function DateTimePicker({
         <Button
           variant={"outline"}
           className={cn(
-            "w-[280px] justify-start bg-popover text-left font-normal",
+            "w-[280px] justify-start text-left font-normal",
             !date && "text-muted-foreground",
           )}
         >
@@ -32,18 +30,21 @@ export function DateTimePicker({
           {date ? format(date, "PPP HH:mm:ss") : <span>Pick a date</span>}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto  p-0">
+      <PopoverContent className="w-auto p-0">
         <Calendar
           mode="single"
           selected={date}
-          onSelect={setDate}
+          onSelect={(date) => {
+            onDateTimeSelect(date);
+            setDate(date);
+          }}
           initialFocus
         />
         <div className="border-t border-border p-3">
-          <TimePickerDemo
+          <TimePicker
             setDate={(date) => {
-              setValue(date);
               setDate(date);
+              onDateTimeSelect(date);
             }}
             date={date}
           />

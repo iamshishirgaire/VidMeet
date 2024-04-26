@@ -15,6 +15,8 @@ const CallList = ({ type }: { type: "ended" | "upcoming" | "recordings" }) => {
     useGetCalls();
   const [recordings, setRecordings] = useState<CallRecording[]>([]);
 
+  console.log(upcomingCalls);
+
   const getCalls = () => {
     switch (type) {
       case "ended":
@@ -77,7 +79,7 @@ const CallList = ({ type }: { type: "ended" | "upcoming" | "recordings" }) => {
     );
   }
   return (
-    <div className="grid w-full grid-cols-1 gap-5 lg:grid-cols-2 2xl:grid-cols-3">
+    <div className="grid h-min w-full grid-cols-1 gap-5 lg:grid-cols-2 2xl:grid-cols-3">
       {calls &&
         calls.length > 0 &&
         calls.map((meeting: Call | CallRecording) => (
