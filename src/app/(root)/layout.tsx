@@ -1,6 +1,11 @@
 import { NavBar } from "~/components/navbar";
 import Sidebar from "~/components/sidebar";
 
+export const metadata = {
+  title: "Dashboard ",
+  description: "Dashboard for the VidMeet app.",
+  icons: [{ rel: "icon", url: "/icons/logo.svg" }],
+};
 export default function HomeLayout({
   children,
 }: {
@@ -13,7 +18,9 @@ export default function HomeLayout({
       </div>
       <div className="flex h-full w-full flex-col">
         <NavBar></NavBar>
-        <div className="flex h-full w-full bg-popover p-4">{children}</div>
+        <div className="flex h-full w-full overflow-y-scroll bg-popover p-4">
+          {children}
+        </div>
       </div>
     </main>
   );

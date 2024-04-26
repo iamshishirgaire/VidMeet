@@ -2,21 +2,13 @@
 
 import { useUser } from "@clerk/nextjs";
 import { Call, useStreamVideoClient } from "@stream-io/video-react-sdk";
-import { CalendarIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import Loading from "~/components/loader";
-import { Button } from "~/components/ui/button";
-import { Calendar } from "~/components/ui/calendar";
+import { DateTimePicker } from "~/components/time-picker/date-time-picker";
 import { Input } from "~/components/ui/input";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "~/components/ui/popover";
 import { Textarea } from "~/components/ui/textarea";
-import { cn } from "~/lib/utils";
 import HomeCard from "./HomeCard";
 import MeetingModal from "./MeetingModel";
 const initialValues = {
@@ -56,8 +48,6 @@ const MeetingTypeList = () => {
       });
       setCallDetail(call);
       if (!values.description) {
-        console.log("Pushing....");
-
         router.push(`/meeting/${call.id}`);
       }
       toast.success("Meeting created successfully");
@@ -77,7 +67,7 @@ const MeetingTypeList = () => {
   const meetingLink = `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${callDetail?.id}`;
 
   return (
-    <section className="grid grid-cols-1 gap-5  md:grid-cols-2 xl:grid-cols-4">
+    <section className="grid grid-cols-1 justify-between gap-5   sm:grid-cols-2 xl:grid-cols-4">
       <HomeCard
         img="/icons/add-meeting.svg"
         title="New Meeting"
@@ -106,6 +96,7 @@ const MeetingTypeList = () => {
         className="bg-green-600"
         handleClick={() => router.push("/recordings")}
       />
+      <div className="my-10"></div>
 
       {!callDetail ? (
         <MeetingModal
@@ -120,7 +111,7 @@ const MeetingTypeList = () => {
               Add a description
             </label>
             <Textarea
-              className="bg-dark-3 border-none focus-visible:ring-0 focus-visible:ring-offset-0"
+              className=" focus-visible:ring-0 focus-visible:ring-offset-0"
               onChange={(e) =>
                 setValues({ ...values, description: e.target.value })
               }
@@ -130,34 +121,12 @@ const MeetingTypeList = () => {
             <label className="text-sky-2 text-base font-normal leading-[22.4px]">
               Select Date and Time
             </label>
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  variant={"outline"}
-                  className={cn(
-                    "w-[280px] justify-start text-left font-normal",
-                    !values.dateTime && "text-muted-foreground",
-                  )}
-                >
-                  <CalendarIcon className="mr-2 h-4 w-4" />
-                  {values.dateTime ? (
-                    <span>{values.dateTime.toDateString()}</span>
-                  ) : (
-                    <span>Pick a date</span>
-                  )}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0">
-                <Calendar
-                  selected={values.dateTime}
-                  mode="single"
-                  className="bg-dark-3 w-full rounded p-2 focus:outline-none"
-                  onSelect={(date) => {
-                    setValues({ ...values, dateTime: date! });
-                  }}
-                />
-              </PopoverContent>
-            </Popover>
+            <DateTimePicker
+              value={values.dateTime}
+              setValue={(date) => {
+                setValues({ ...values, dateTime: date });
+              }}
+            ></DateTimePicker>
           </div>
         </MeetingModal>
       ) : (
@@ -189,7 +158,7 @@ const MeetingTypeList = () => {
         <Input
           placeholder="Meeting link"
           onChange={(e) => setValues({ ...values, link: e.target.value })}
-          className="bg-dark-3 border-none focus-visible:ring-0 focus-visible:ring-offset-0"
+          className="focus-visible:ring-0 focus-visible:ring-offset-0"
         />
       </MeetingModal>
 

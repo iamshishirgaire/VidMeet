@@ -8,7 +8,7 @@ import MeetingSetup from "../components/meeting-setup";
 import MeetingRoom from "../components/meeting-room";
 import { useGetCallById } from "~/hooks/useGetCallById";
 
-function MeetingPage({
+export default function MeetingPage({
   params,
 }: {
   params: {
@@ -21,7 +21,7 @@ function MeetingPage({
 
   if (!isLoaded || isCallLoading)
     return (
-      <div className="flex h-full w-full items-center justify-center">
+      <div className="flex h-screen w-full items-center justify-center">
         <Loading />
       </div>
     );
@@ -29,7 +29,7 @@ function MeetingPage({
   return (
     <PageWrapper>
       <StreamCall call={call}>
-        <StreamTheme>
+        <StreamTheme className=" h-screen w-full bg-[hsl(0,0,9)]  text-white">
           {!setup ? (
             <MeetingSetup setIsSetupComplete={setSetup}></MeetingSetup>
           ) : (
@@ -40,5 +40,3 @@ function MeetingPage({
     </PageWrapper>
   );
 }
-
-export default MeetingPage;

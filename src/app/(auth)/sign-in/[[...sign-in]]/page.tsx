@@ -5,7 +5,6 @@ import { useTheme } from "next-themes";
 
 export default function SignInPage() {
   const theme = useTheme();
-  console.log(theme);
   return (
     <main>
       <SignIn

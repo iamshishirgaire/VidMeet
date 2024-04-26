@@ -5,7 +5,6 @@ import React from "react";
 
 export default function SignUpPage() {
   const theme = useTheme();
-  console.log(theme);
   return (
     <main>
       <SignUp

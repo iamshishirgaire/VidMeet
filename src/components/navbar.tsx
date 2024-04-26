@@ -18,7 +18,7 @@ export const NavBar = () => {
   const theme = useTheme();
 
   return (
-    <div className="flex h-[70px] w-full justify-between border-b-2 border-border/25 bg-popover px-10 py-3">
+    <div className="sticky top-0 flex h-[70px] w-full justify-between border-b-2 border-border/25 bg-popover/90  px-10 py-3 backdrop-blur-sm">
       <Sheet>
         <SheetTrigger asChild>
           <Button variant="outline" size="icon" className="shrink-0 sm:hidden">

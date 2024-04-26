@@ -9,7 +9,7 @@ const Sidebar = () => {
   const pathname = usePathname();
 
   return (
-    <div className="flex flex-1 flex-col gap-6">
+    <div className=" flex flex-1 flex-col gap-6">
       <nav className="flex h-[70px] flex-row items-center justify-start gap-2">
         <Image
           src={"/icons/logo.svg"}

@@ -1,11 +1,13 @@
 "use client";
+import { Dialog } from "@radix-ui/react-dialog";
 import {
   DeviceSettings,
   VideoPreview,
   useCall,
   useCallStateHooks,
 } from "@stream-io/video-react-sdk";
-import { PhoneMissedIcon } from "lucide-react";
+import { AlertCircleIcon, PhoneMissedIcon, PhoneOff } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 import { Button } from "~/components/ui/button";
@@ -21,16 +23,25 @@ const MeetingSetup = ({
   const callTimeNotArrived =
     callStartsAt && new Date(callStartsAt) > new Date();
   const callHasEnded = !!callEndedAt;
+  const router = useRouter();
 
   const call = useCall();
 
   if (!call) {
     return (
-      <Alert>
-        <PhoneMissedIcon className="h-4 w-4" />
-        <AlertTitle>Invalid call Id.</AlertTitle>
-        <AlertDescription>Couldn't find any calls.</AlertDescription>
-      </Alert>
+      <div className="flex h-full w-full items-center justify-center ">
+        <div className="flex h-[200px] flex-col items-center justify-center gap-5">
+          <PhoneMissedIcon className="size-10 text-primary"></PhoneMissedIcon>
+          <p className="text-3xl font-bold">Couldn't Find any calls.</p>
+          <Button
+            onClick={() => {
+              router.replace("/home");
+            }}
+          >
+            Home
+          </Button>
+        </div>
+      </div>
     );
   }
 
@@ -48,24 +59,40 @@ const MeetingSetup = ({
 
   if (callTimeNotArrived)
     return (
-      <Alert
-        title={`Your Meeting has not started yet. It is scheduled for ${callStartsAt.toLocaleString()}`}
-      />
+      <div className="flex h-full w-full items-center justify-center">
+        <Alert
+          title={`Your Meeting has not started yet. It is scheduled for ${callStartsAt.toLocaleString()}`}
+        />
+      </div>
     );
 
   if (callHasEnded)
     return (
-      <Alert>
-        <PhoneMissedIcon className="h-4 w-4" />
-        <AlertTitle>Call Ended</AlertTitle>
-        <AlertDescription>The call has been ended by the host</AlertDescription>
-      </Alert>
+      <div className="flex h-full w-full items-center justify-center">
+        <div className="flex h-[200px] flex-col items-center justify-center gap-5">
+          <PhoneOff className="size-10 text-primary"></PhoneOff>
+          <p className="text-3xl font-bold">
+            The call has been ended by the host.
+          </p>
+          <Button
+            onClick={() => {
+              router.replace("/home");
+            }}
+          >
+            Home
+          </Button>
+        </div>
+      </div>
     );
 
   return (
-    <div className="flex  w-full flex-col items-center justify-center gap-3 text-white">
-      <h1 className="text-center text-2xl font-bold">Setup</h1>
-      <VideoPreview />
+    <div className="flex h-screen w-full flex-col items-center justify-center gap-3 ">
+      <h1 className="text-center text-3xl font-bold">
+        Setup your camera and microphone
+      </h1>
+      <div className="m-10 min-h-[400px] min-w-[500px]">
+        <VideoPreview className="size-max border-none"></VideoPreview>
+      </div>
       <div className="flex h-16 items-center justify-center gap-3">
         <label className="flex items-center justify-center gap-2 font-medium">
           <input

@@ -11,7 +11,7 @@ const inter = Inter({
 export const metadata = {
   title: "VidMeet ",
   description: "A video conferencing app built with Next.js and Stream.",
-  icons: [{ rel: "icon", url: "/icons/favicon.ico" }],
+  icons: [{ rel: "icon", url: "/icons/logo.svg" }],
 };
 
 export default function RootLayout({

@@ -2,6 +2,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "./theme-provider";
 import { Toaster } from "sonner";
 import { StreamProvider } from "./stream-cient-provider";
+import "@stream-io/video-react-sdk/dist/css/styles.css";
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
   return (
