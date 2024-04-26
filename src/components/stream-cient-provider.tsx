@@ -4,12 +4,14 @@ import { StreamVideo, StreamVideoClient } from "@stream-io/video-react-sdk";
 import { tokenProvider } from "actions/stream.actions";
 import { useEffect, useState } from "react";
 import Loading from "./loader";
+import { useRouter } from "next/navigation";
 
 const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY as string;
 
 export const StreamProvider = ({ children }: { children: React.ReactNode }) => {
   const [videoClient, setVideoClient] = useState<StreamVideoClient>();
   const { user, isLoaded } = useUser();
+  const router = useRouter();
   useEffect(() => {
     if (!isLoaded || !user) return;
     if (!apiKey) {
@@ -26,11 +28,21 @@ export const StreamProvider = ({ children }: { children: React.ReactNode }) => {
     });
     setVideoClient(client);
   }, [user, isLoaded]);
-  if (!videoClient)
+  if (isLoaded && !user) {
+    router.push("/sign-in");
+    return (
+      <div className="flex h-[100vh] w-full items-center justify-center ">
+        {children}
+      </div>
+    );
+  }
+
+  if (!videoClient) {
     return (
       <div className="flex h-[100vh] w-full items-center justify-center ">
         <Loading></Loading>
       </div>
     );
+  }
   return <StreamVideo client={videoClient}>{children}</StreamVideo>;
 };

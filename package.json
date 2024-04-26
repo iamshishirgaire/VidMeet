@@ -1,13 +1,13 @@
 {
-  "name": "VidMeet",
+  "name": "vid-meet",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "scripts": {
     "build": "next build",
-    "dev": "next dev --turbo",
+    "dev": "next dev --turbo --port 5731",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start --port 5731"
   },
   "dependencies": {
     "@clerk/nextjs": "5.0.0-beta.46",
