@@ -21,12 +21,12 @@ const HomeCard = ({
   return (
     <section
       className={cn(
-        "flex min-h-[260px] w-full cursor-pointer flex-col justify-between rounded-[14px] bg-primary px-4 py-6 xl:max-w-[270px]",
+        "flex min-h-[260px] w-full cursor-pointer flex-col justify-between rounded-[14px]  px-4 py-6 xl:max-w-[270px]",
         className,
       )}
       onClick={handleClick}
     >
-      <div className="flex-center glassmorphism size-12 rounded-[10px]">
+      <div className=" glassmorphism  flex size-12 items-center justify-center rounded-[10px]">
         <Image src={img} alt="meeting" width={27} height={27} />
       </div>
 

@@ -1,27 +1,24 @@
-/* eslint-disable camelcase */
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
+import { Call, useStreamVideoClient } from "@stream-io/video-react-sdk";
+import { CalendarIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { toast } from "sonner";
-import HomeCard from "./HomeCardList";
-import MeetingModal from "./MeetingModel";
-import { Textarea } from "~/components/ui/textarea";
+import Loading from "~/components/loader";
+import { Button } from "~/components/ui/button";
+import { Calendar } from "~/components/ui/calendar";
+import { Input } from "~/components/ui/input";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "~/components/ui/popover";
-import { format } from "prettier";
-import { Input } from "~/components/ui/input";
+import { Textarea } from "~/components/ui/textarea";
 import { cn } from "~/lib/utils";
-import { Button } from "~/components/ui/button";
-import { CalendarIcon, Loader } from "lucide-react";
-import { Calendar } from "~/components/ui/calendar";
-import { Call, useStreamVideoClient } from "@stream-io/video-react-sdk";
-import LoadingIndicator from "~/components/loader";
-import Loading from "~/components/loader";
+import HomeCard from "./HomeCard";
+import MeetingModal from "./MeetingModel";
 const initialValues = {
   dateTime: new Date(),
   description: "",
@@ -43,25 +40,27 @@ const MeetingTypeList = () => {
     try {
       if (!values.dateTime) {
         toast.error("Please select a date and time");
-        const id = crypto.randomUUID();
-        const call = client.call("default", id);
-        if (!call) throw new Error("Failed to create meeting");
-        const startsAt = new Date(Date.now()).toISOString();
-        const description = values.description || "Instant Meeting";
-        await call.getOrCreate({
-          data: {
-            starts_at: startsAt,
-            custom: {
-              description,
-            },
-          },
-        });
-        setCallDetail(call);
-        if (!values.description) {
-          router.push(`/meeting/${call.id}`);
-        }
-        toast.success("Meeting created successfully");
       }
+      const id = crypto.randomUUID();
+      const call = client.call("default", id);
+      if (!call) throw new Error("Failed to create meeting");
+      const startsAt = new Date(Date.now()).toISOString();
+      const description = values.description || "Instant Meeting";
+      await call.getOrCreate({
+        data: {
+          starts_at: startsAt,
+          custom: {
+            description,
+          },
+        },
+      });
+      setCallDetail(call);
+      if (!values.description) {
+        console.log("Pushing....");
+
+        router.push(`/meeting/${call.id}`);
+      }
+      toast.success("Meeting created successfully");
     } catch (error) {
       console.error(error);
       toast.error("Failed to create meeting");
@@ -78,32 +77,33 @@ const MeetingTypeList = () => {
   const meetingLink = `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${callDetail?.id}`;
 
   return (
-    <section className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
+    <section className="grid grid-cols-1 gap-5  md:grid-cols-2 xl:grid-cols-4">
       <HomeCard
         img="/icons/add-meeting.svg"
         title="New Meeting"
         description="Start an instant meeting"
+        className="bg-primary"
         handleClick={() => setMeetingState("isInstantMeeting")}
       />
       <HomeCard
         img="/icons/join-meeting.svg"
         title="Join Meeting"
         description="via invitation link"
-        className="bg-blue-1"
+        className="bg-blue-600"
         handleClick={() => setMeetingState("isJoiningMeeting")}
       />
       <HomeCard
         img="/icons/schedule.svg"
         title="Schedule Meeting"
         description="Plan your meeting"
-        className="bg-purple-1"
+        className="bg-purple-600"
         handleClick={() => setMeetingState("isScheduleMeeting")}
       />
       <HomeCard
         img="/icons/recordings.svg"
         title="View Recordings"
         description="Meeting Recordings"
-        className="bg-yellow-1"
+        className="bg-green-600"
         handleClick={() => router.push("/recordings")}
       />
 
@@ -112,6 +112,7 @@ const MeetingTypeList = () => {
           isOpen={meetingState === "isScheduleMeeting"}
           onClose={() => setMeetingState(undefined)}
           title="Create Meeting"
+          buttonClassName="bg-purple-600 hover:bg-purple-700"
           handleClick={createMeeting}
         >
           <div className="flex flex-col gap-2.5">
@@ -139,11 +140,11 @@ const MeetingTypeList = () => {
                   )}
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
-                  {/* {values.dateTime ? (
-                    format(values.dateTime.toLocaleString(),"yyyy-MM-dd HH:mm")
+                  {values.dateTime ? (
+                    <span>{values.dateTime.toDateString()}</span>
                   ) : (
                     <span>Pick a date</span>
-                  )} */}
+                  )}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0">
@@ -171,6 +172,7 @@ const MeetingTypeList = () => {
           image={"/icons/checked.svg"}
           buttonIcon="/icons/copy.svg"
           className="text-center"
+          buttonClassName="bg-purple-600 hover:bg-purple-700"
           buttonText="Copy Meeting Link"
         />
       )}
@@ -182,6 +184,7 @@ const MeetingTypeList = () => {
         className="text-center"
         buttonText="Join Meeting"
         handleClick={() => router.push(values.link)}
+        buttonClassName="bg-blue-600 hover:bg-blue-700"
       >
         <Input
           placeholder="Meeting link"
@@ -196,6 +199,7 @@ const MeetingTypeList = () => {
         title="Start an Instant Meeting"
         className="text-center"
         buttonText="Start Meeting"
+        buttonClassName="bg-primary"
         handleClick={createMeeting}
       />
     </section>

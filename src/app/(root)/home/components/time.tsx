@@ -11,7 +11,7 @@ const Time = () => {
   }).format(now);
   return (
     <div>
-      <p className="pb-4 text-6xl font-bold">
+      <p className="mb-4 text-6xl font-bold">
         {time.split(" ")[0]}{" "}
         <span className="text-xl">{time.split(" ")[1]}</span>
       </p>

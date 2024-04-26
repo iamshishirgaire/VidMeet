@@ -26,6 +26,11 @@ export const StreamProvider = ({ children }: { children: React.ReactNode }) => {
     });
     setVideoClient(client);
   }, [user, isLoaded]);
-  if (!videoClient) return <Loading></Loading>;
+  if (!videoClient)
+    return (
+      <div className="flex h-[100vh] w-full items-center justify-center">
+        <Loading></Loading>
+      </div>
+    );
   return <StreamVideo client={videoClient}>{children}</StreamVideo>;
 };
