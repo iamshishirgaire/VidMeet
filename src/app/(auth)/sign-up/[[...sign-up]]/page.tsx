@@ -8,6 +8,7 @@ export default function SignUpPage() {
   return (
     <main>
       <SignUp
+        fallbackRedirectUrl={"/home"}
         appearance={{
           baseTheme: theme.resolvedTheme === "dark" ? dark : undefined,
         }}

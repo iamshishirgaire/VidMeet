@@ -86,12 +86,12 @@ const MeetingSetup = ({
     );
 
   return (
-    <div className="flex h-screen w-full flex-col items-center justify-center gap-3 ">
+    <div className="flex h-screen w-full flex-col items-center justify-center gap-3 overflow-hidden ">
       <h1 className="text-center text-3xl font-bold">
         Setup your camera and microphone
       </h1>
-      <div className="m-10 min-h-[400px] min-w-[500px]">
-        <VideoPreview className="size-max border-none"></VideoPreview>
+      <div className="m-10">
+        <VideoPreview className=" border-none"></VideoPreview>
       </div>
       <div className="flex h-16 items-center justify-center gap-3">
         <label className="flex items-center justify-center gap-2 font-medium">

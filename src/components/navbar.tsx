@@ -1,17 +1,16 @@
 "use client";
-import React, { Suspense } from "react";
-import { Sheet, SheetClose, SheetContent, SheetTrigger } from "./ui/sheet";
-import { Divide, Menu } from "lucide-react";
-import { ModeToggle } from "./theme-toggler";
-import { Button } from "./ui/button";
+import { SignedIn, UserButton } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
+import { Menu } from "lucide-react";
+import { useTheme } from "next-themes";
+import Image from "next/image";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { sidebarLinks } from "~/constants";
-import Link from "next/link";
 import { cn } from "~/lib/utils";
-import Image from "next/image";
-import { SignedIn, UserButton, UserProfile } from "@clerk/nextjs";
-import { useTheme } from "next-themes";
-import { dark } from "@clerk/themes";
+import { ModeToggle } from "./theme-toggler";
+import { Button } from "./ui/button";
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from "./ui/sheet";
 
 export const NavBar = () => {
   const pathname = usePathname();
@@ -28,18 +27,20 @@ export const NavBar = () => {
         </SheetTrigger>
         <SheetContent side="left">
           <div className="flex flex-1 flex-col gap-6">
-            <div className="flex items-center justify-start gap-2">
-              <Image
-                src={"/icons/logo.svg"}
-                height={40}
-                width={40}
-                alt="Vidmeet Logo"
-              ></Image>
-              <p className={cn(" text-2xl font-semibold")}>
-                <span className="tracking-normal">VID</span>
-                <span className="tracking-normal text-primary">MEET</span>
-              </p>
-            </div>
+            <Link href={"/home"}>
+              <div className="flex cursor-pointer items-center justify-start gap-2">
+                <Image
+                  src={"/icons/logo.svg"}
+                  height={40}
+                  width={40}
+                  alt="Vidmeet Logo"
+                ></Image>
+                <p className={cn(" text-2xl font-semibold")}>
+                  <span className="tracking-normal">VID</span>
+                  <span className="tracking-normal text-primary">MEET</span>
+                </p>
+              </div>
+            </Link>
             {sidebarLinks.map((item) => {
               const isActive =
                 pathname === item.route ||

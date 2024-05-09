@@ -8,6 +8,7 @@ export default function SignInPage() {
   return (
     <main>
       <SignIn
+        fallbackRedirectUrl={"/home"}
         appearance={{
           baseTheme: theme.resolvedTheme === "dark" ? dark : undefined,
         }}

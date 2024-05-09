@@ -11,16 +11,18 @@ const Sidebar = () => {
   return (
     <div className=" flex flex-1 flex-col gap-6">
       <nav className="flex h-[70px] flex-row items-center justify-start gap-2">
-        <Image
-          src={"/icons/logo.svg"}
-          height={40}
-          width={40}
-          alt="Vidmeet Logo"
-        ></Image>
-        <p className={cn("hidden text-2xl font-bold lg:flex ")}>
-          <span className="tracking-normal">VID</span>
-          <span className="tracking-normal text-primary">MEET</span>
-        </p>
+        <Link href={"/home"} className="flex cursor-pointer items-center gap-3">
+          <Image
+            src={"/icons/logo.svg"}
+            height={40}
+            width={40}
+            alt="Vidmeet Logo"
+          ></Image>
+          <p className={cn("hidden text-2xl font-bold lg:flex ")}>
+            <span className="tracking-normal">VID</span>
+            <span className="tracking-normal text-primary">MEET</span>
+          </p>
+        </Link>
       </nav>
       {sidebarLinks.map((item) => {
         const isActive =
